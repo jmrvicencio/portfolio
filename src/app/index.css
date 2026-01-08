@@ -1,1 +1,29 @@
+@import url('https://fonts.googleapis.com/css2?family=Cascadia+Code:ital,wght@0,200..700;1,200..700&family=Courier+Prime:ital,wght@0,400;0,700;1,400;1,700&family=Noto+Sans:ital,wght@0,100..900;1,100..900&family=Outfit:wght@100..900&family=Praise&family=Roboto+Mono:ital,wght@0,100..700;1,100..700&family=Ubuntu+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Gabarito:wght@400..900&display=swap');
 @import 'tailwindcss';
+
+@font-face {
+  font-family: 'Gieonto';
+  font-style: normal;
+  font-weight: 100;
+  font-display: swap;
+  src: url('/fonts/Gieonto.otf') format('opentype');
+}
+
+@theme {
+  --font-gabarito: 'Gabarito', sans-serif;
+  --font-outfit: 'Outfit', sans-serif;
+  --font-noto-sans: 'Noto Sans', sans-serif;
+  --font-gieonto: 'Gieonto', sans-serif;
+  --font-robot-mono: 'Roboto Mono', monospace;
+  --font-courier-prime: 'Courier Prime', monospace;
+  --font-cascadia-code: 'Cascadia Code', monospace;
+
+  --color-journal-800: #2b2625;
+
+  --color-accent-400: #ffc05b;
+}
+
+body {
+  background-color: var(--color-journal-800);
+}
