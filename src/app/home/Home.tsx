@@ -23,7 +23,7 @@ function Home() {
           <nav className="flex gap-12 text-xl">
             <p>About</p>
             <p>Projects</p>
-            <p>Contact</p>
+            <p><a href="mailto:inkintime@gmail.com">Contact</a></p>
           </nav>
         </div>
       </header>
