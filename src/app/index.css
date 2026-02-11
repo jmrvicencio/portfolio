@@ -19,7 +19,9 @@
   --font-courier-prime: 'Courier Prime', monospace;
   --font-cascadia-code: 'Cascadia Code', monospace;
 
+  --color-journal-300: #5c504d;
   --color-journal-800: #2b2625;
+  --color-journal-900: #242020;
 
   --color-accent-400: #ffc05b;
 }
