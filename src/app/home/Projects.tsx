@@ -11,7 +11,7 @@ export const keepinTabs: ProjectDetails = {
   },
   title: 'Keepin Tabs',
   desc: (
-    <p>
+    <p key="keepin-tabs">
       A simple bill splitting app for sharing your expenses and{' '}
       <span className="text-accent-400 font-bold">Keepin&apos;</span> track of your{' '}
       <span className="text-accent-400 font-bold">Tabs</span> with each other
@@ -36,10 +36,9 @@ export const keepinTabs: ProjectDetails = {
 export const guadalupe: ProjectDetails = {
   links: {
     live: 'asd',
-    github: 'asd',
   },
   title: 'Guadalupe Dried Mangos',
-  desc: <p>Official website for the Guadalupe Dried Mangoes brand.</p>,
+  desc: <p key="guadalupe">Official website for the Guadalupe Dried Mangoes brand.</p>,
   screenshots: [keepintabs1, keepintabs2, keepintabs3],
   techStack: [
     'React',

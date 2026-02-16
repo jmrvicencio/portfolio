@@ -100,7 +100,17 @@ const Keys = () => {
 };
 
 const Chip = ({ children }: { children: ReactNode }) => {
-  return <div className="bg-journal-300 rounded-lg px-3 py-1 text-white">{children}</div>;
+  return (
+    <motion.div
+      layout
+      initial={{ opacity: 0, scale: 0.5 }}
+      animate={{ opacity: 1, scale: 1 }}
+      exit={{ opacity: 0, scale: 0.5 }}
+      className="bg-journal-300 rounded-lg px-3 py-1 text-white"
+    >
+      {children}
+    </motion.div>
+  );
 };
 
 const Title = ({ children }: { children: ReactNode }) => {
@@ -143,47 +153,73 @@ const Hero = () => {
         <div className="flex flex-col gap-12">
           <div>
             <div className="text-accent-400 flex gap-8 text-2xl underline">
-              <div className="flex gap-1">
-                <img src={link} />
-                <p className="text-nowrap">live site</p>
-              </div>
-              <div className="flex gap-1">
-                <img src={github} />
-                <p className="text-nowrap">github repo</p>
-              </div>
+              <AnimatePresence mode="wait">
+                {project.links.live && (
+                  <motion.div
+                    initial={{ opacity: 0, scale: 0.5 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    exit={{ opacity: 0, scale: 0.5 }}
+                  >
+                    <a href="test" className="flex gap-1">
+                      <img src={link} />
+                      <p className="text-nowrap">live site</p>
+                    </a>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+              <AnimatePresence mode="wait">
+                {project.links.github && (
+                  <motion.div
+                    initial={{ opacity: 0, scale: 0.5 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    exit={{ opacity: 0, scale: 0.5 }}
+                  >
+                    <a href="test" className="flex gap-1">
+                      <img src={github} />
+                      <p className="text-nowrap">live site</p>
+                    </a>
+                  </motion.div>
+                )}
+              </AnimatePresence>
             </div>
             <motion.div className="relative">
               <AnimatePresence mode="wait">
                 <Title key={project.title}>{project.title}</Title>
               </AnimatePresence>
             </motion.div>
-            <p>
-              A simple bill splitting app for sharing your expenses and{' '}
-              <span className="text-accent-400 font-bold">Keepin&apos;</span> track of
-              your <span className="text-accent-400 font-bold">Tabs</span> with each other
-              <br className="mb-4" />
-              Creates groups and simplifies the budget to avoid cyclical repayments of
-              debts!
-            </p>
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={project.title}
+                initial={{ opacity: 0, y: 12 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -12 }}
+                transition={{ duration: 0.3 }}
+              >
+                {project.desc}
+              </motion.div>
+            </AnimatePresence>
           </div>
-          <div className="flex gap-4">
-            <img src={keepintabs1} className="w-1 shrink grow" />
-            <img src={keepintabs2} className="w-1 shrink grow" />
-            <img src={keepintabs3} className="w-1 shrink grow" />
-          </div>
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={project.title}
+              initial={{ opacity: 0, x: 24 }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, x: -24 }}
+              transition={{ duration: 0.3 }}
+              className="flex gap-4"
+            >
+              <img src={keepintabs1} className="w-1 shrink grow" />
+              <img src={keepintabs2} className="w-1 shrink grow" />
+              <img src={keepintabs3} className="w-1 shrink grow" />
+            </motion.div>
+          </AnimatePresence>
           <div>
             <h3 className="text-accent-400 mb-3">#TechStack</h3>
-            <div className="flex flex-wrap gap-2">
-              <Chip>React</Chip>
-              <Chip>Firebase</Chip>
-              <Chip>Firestore</Chip>
-              <Chip>TailwindCss</Chip>
-              <Chip>Vite</Chip>
-              <Chip>Typescript</Chip>
-              <Chip>React Router DOM</Chip>
-              <Chip>Jotai</Chip>
-              <Chip>Figma</Chip>
-            </div>
+            <motion.div className="flex flex-wrap gap-2">
+              {project.techStack.map((item) => (
+                <Chip key={item}>{item}</Chip>
+              ))}
+            </motion.div>
           </div>
         </div>
         <div>
