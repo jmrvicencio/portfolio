@@ -15,6 +15,9 @@ import {
   useMotionValue,
 } from 'motion/react';
 import { projects } from './Projects';
+import useSound from 'use-sound';
+import { activeProjectAtom } from '@/store/store';
+import { useAtom } from 'jotai';
 
 import keepintabs1 from '/images/screenshots/keepintabs/1.png';
 import keepintabs2 from '/images/screenshots/keepintabs/2.png';
@@ -24,10 +27,14 @@ import monitor from '/images/hero/monitor.png';
 import link from '/images/hero/link.svg';
 import github from '/images/hero/github.svg';
 import arrow from '/images/hero/arrow.svg';
-import { activeProjectAtom } from '@/store/store';
-import { useAtom } from 'jotai';
+
+import hoverSfx from '/sounds/hover3.mp3';
+import clickSfx from '/sounds/click.mp3';
 
 const Key = ({ index }: { index: number }) => {
+  const [playHover, { stop }] = useSound(hoverSfx, { volume: 0.9 });
+  const [playClick] = useSound(clickSfx);
+
   const [activeProject, setActiveProject] = useAtom(activeProjectAtom);
   const [mouseDown, setMouseDown] = useState(false);
 
@@ -42,6 +49,8 @@ const Key = ({ index }: { index: number }) => {
 
   const handleClick = (e: MouseEvent) => {
     console.log('set active project:', index);
+    stop();
+    playClick();
     setActiveProject(index);
   };
 
@@ -56,6 +65,14 @@ const Key = ({ index }: { index: number }) => {
 
   const handleMouseUp = () => {
     setMouseDown(false);
+  };
+
+  const handleMouseEnter = () => {
+    console.log('mouse enter');
+
+    if (!isActive) {
+      playHover();
+    }
   };
 
   const handleMouseLeave = () => {
@@ -74,6 +91,7 @@ const Key = ({ index }: { index: number }) => {
       onMouseDownCapture={handleMouseDownCapture}
       onTapStart={handleTapStart}
       onMouseUp={handleMouseUp}
+      onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
       className="w-20"
       src={keyKeepintabs}
