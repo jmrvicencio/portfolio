@@ -16,14 +16,17 @@ export const keepinTabs: ProjectDetails = {
   title: 'Keepin Tabs',
   desc: (
     <Fragment key="keepin-tabs">
-      <p className="mb-4">
+      <p className="not-last:mb-4">
         A simple bill splitting app for sharing your expenses and{' '}
         <span className="text-accent-400 font-bold">Keepin&apos;</span> track of your{' '}
         <span className="text-accent-400 font-bold">Tabs</span> with each other
       </p>
-      <p>
-        Creates groups and simplifies the budget to avoid cyclical repayments of
-        debts!{' '}
+      <p className="not-last:mb-4">
+        Creates groups and simplifies the budget to avoid cyclical repayments of debts!
+      </p>
+      <p className="not-last:mb-4">
+        Makes use of Firebase authentication for logins and Firestore for dynamic
+        real-time storage.
       </p>
     </Fragment>
   ),
@@ -48,11 +51,24 @@ export const guadalupe: ProjectDetails = {
   links: {
     live: 'asd',
   },
-  title: 'Guadalupe Dried Mangos',
-  desc: <p key="guadalupe">Official website for the Guadalupe Dried Mangoes brand.</p>,
+  title: 'Guadalupe Website',
+  desc: (
+    <Fragment key="guadalupe">
+      <p className="not-last:mb-4">
+        The official website for the
+        <span className="text-accent-400 font-bold"> Guadalupe Dried Mangoes</span> brand.
+        It is a vibrant, product-focused website that captures the bright, tropical
+        personality of the brand.
+      </p>
+      <p className="not-last:mb-4">
+        Fun and interactive animations shine with the help of the Framer Motion animation
+        library.
+      </p>
+    </Fragment>
+  ),
   screenshots: {
     type: 'portrait',
-    images: [guada1, guada2, guada3],
+    images: [guada2, guada3, guada1],
   },
   techStack: [
     'React',

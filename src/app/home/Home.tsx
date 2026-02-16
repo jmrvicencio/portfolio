@@ -25,6 +25,7 @@ import arrow from '/images/hero/arrow.svg';
 
 import hoverSfx from '/sounds/hover3.mp3';
 import clickSfx from '/sounds/click.mp3';
+import About from './About';
 
 const Key = ({ index }: { index: number }) => {
   const [playbackRate, setPlaybackRate] = useState(0.0);
@@ -193,7 +194,7 @@ const Hero = () => {
                   >
                     <a href="test" className="flex gap-1">
                       <img src={github} />
-                      <p className="text-nowrap">live site</p>
+                      <p className="text-nowrap">github repo</p>
                     </a>
                   </motion.div>
                 )}
@@ -228,9 +229,6 @@ const Hero = () => {
               {project.screenshots.images.map((image) => (
                 <img src={image} className="w-1 shrink grow" />
               ))}
-              {/* <img src={keepintabs1} className="w-1 shrink grow" />
-              <img src={keepintabs2} className="w-1 shrink grow" />
-              <img src={keepintabs3} className="w-1 shrink grow" /> */}
             </motion.div>
           </AnimatePresence>
           <div>
@@ -310,13 +308,21 @@ const Home = () => {
               <a href="mailto:inkintime@gmail.com">Contact</a>
             </p>
             <div className="flex items-center cursor-pointer" onClick={handleClick}>
-              {mute ? <VolumeX /> : <Volume2 />}
+              <motion.div
+                animate={{ opacity: !mute ? 1 : 0.4 }}
+                transition={{ duration: 0.1 }}
+              >
+                {mute ? <VolumeX /> : <Volume2 />}
+              </motion.div>
             </div>
           </nav>
         </div>
       </header>
-      <main className="mx-auto flex h-2000 max-w-300 justify-center text-2xl">
+      <main
+        className="mx-auto flex flex-col gap-64 h-2000 max-w-300 justify-start text-2xl"
+      >
         <Hero />
+        <About />
       </main>
     </div>
   );
