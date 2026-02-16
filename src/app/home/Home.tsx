@@ -7,17 +7,12 @@ import {
   useRef,
   useState,
 } from 'react';
-import {
-  AnimatePresence,
-  AnimationDefinition,
-  motion,
-  MotionValue,
-  useMotionValue,
-} from 'motion/react';
+import { AnimatePresence, motion } from 'motion/react';
 import { projects } from './Projects';
 import useSound from 'use-sound';
 import { activeProjectAtom } from '@/store/store';
 import { useAtom } from 'jotai';
+import { Volume2, VolumeX } from 'lucide-react';
 
 import keepintabs1 from '/images/screenshots/keepintabs/1.png';
 import keepintabs2 from '/images/screenshots/keepintabs/2.png';
@@ -301,6 +296,9 @@ const Home = () => {
             <p>
               <a href="mailto:inkintime@gmail.com">Contact</a>
             </p>
+            <div className="flex items-center">
+              <Volume2 />
+            </div>
           </nav>
         </div>
       </header>
