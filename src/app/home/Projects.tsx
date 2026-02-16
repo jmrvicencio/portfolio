@@ -1,8 +1,12 @@
+import { Fragment } from 'react';
 import { ProjectDetails } from '@/types/projects';
 
 import keepintabs1 from '/images/screenshots/keepintabs/1.png';
 import keepintabs2 from '/images/screenshots/keepintabs/2.png';
 import keepintabs3 from '/images/screenshots/keepintabs/3.png';
+import guada1 from '/images/screenshots/guada/guada1.png';
+import guada2 from '/images/screenshots/guada/guada2.png';
+import guada3 from '/images/screenshots/guada/guada3.png';
 
 export const keepinTabs: ProjectDetails = {
   links: {
@@ -11,15 +15,22 @@ export const keepinTabs: ProjectDetails = {
   },
   title: 'Keepin Tabs',
   desc: (
-    <p key="keepin-tabs">
-      A simple bill splitting app for sharing your expenses and{' '}
-      <span className="text-accent-400 font-bold">Keepin&apos;</span> track of your{' '}
-      <span className="text-accent-400 font-bold">Tabs</span> with each other
-      <br className="mb-4" />
-      Creates groups and simplifies the budget to avoid cyclical repayments of debts!{' '}
-    </p>
+    <Fragment key="keepin-tabs">
+      <p className="mb-4">
+        A simple bill splitting app for sharing your expenses and{' '}
+        <span className="text-accent-400 font-bold">Keepin&apos;</span> track of your{' '}
+        <span className="text-accent-400 font-bold">Tabs</span> with each other
+      </p>
+      <p>
+        Creates groups and simplifies the budget to avoid cyclical repayments of
+        debts!{' '}
+      </p>
+    </Fragment>
   ),
-  screenshots: [keepintabs1, keepintabs2, keepintabs3],
+  screenshots: {
+    type: 'portrait',
+    images: [keepintabs1, keepintabs2, keepintabs3],
+  },
   techStack: [
     'React',
     'Firebase',
@@ -39,7 +50,10 @@ export const guadalupe: ProjectDetails = {
   },
   title: 'Guadalupe Dried Mangos',
   desc: <p key="guadalupe">Official website for the Guadalupe Dried Mangoes brand.</p>,
-  screenshots: [keepintabs1, keepintabs2, keepintabs3],
+  screenshots: {
+    type: 'portrait',
+    images: [guada1, guada2, guada3],
+  },
   techStack: [
     'React',
     'Framer Motion',

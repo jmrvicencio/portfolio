@@ -27,8 +27,9 @@ import hoverSfx from '/sounds/hover3.mp3';
 import clickSfx from '/sounds/click.mp3';
 
 const Key = ({ index }: { index: number }) => {
-  const [playHover, { stop }] = useSound(hoverSfx, { volume: 0.9 });
-  const [playClick] = useSound(clickSfx);
+  const [playbackRate, setPlaybackRate] = useState(0.0);
+  const [playHover, { stop }] = useSound(hoverSfx, { playbackRate: 1 + playbackRate });
+  const [playClick] = useSound(clickSfx, { playbackRate: 1 + playbackRate });
 
   const [mute, _] = useAtom(muteAtom);
   const [activeProject, setActiveProject] = useAtom(activeProjectAtom);
@@ -47,6 +48,7 @@ const Key = ({ index }: { index: number }) => {
     if (!mute) {
       stop();
       playClick();
+      setPlaybackRate(Math.random() * 0.3 - 0.15);
     }
 
     setActiveProject(index);
@@ -68,6 +70,7 @@ const Key = ({ index }: { index: number }) => {
   const handleMouseEnter = () => {
     if (!isActive && !mute) {
       playHover();
+      setPlaybackRate(Math.random() * 0.3 - 0.15);
     }
   };
 
@@ -222,9 +225,12 @@ const Hero = () => {
               transition={{ duration: 0.3 }}
               className="flex gap-4"
             >
-              <img src={keepintabs1} className="w-1 shrink grow" />
+              {project.screenshots.images.map((image) => (
+                <img src={image} className="w-1 shrink grow" />
+              ))}
+              {/* <img src={keepintabs1} className="w-1 shrink grow" />
               <img src={keepintabs2} className="w-1 shrink grow" />
-              <img src={keepintabs3} className="w-1 shrink grow" />
+              <img src={keepintabs3} className="w-1 shrink grow" /> */}
             </motion.div>
           </AnimatePresence>
           <div>

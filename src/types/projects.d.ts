@@ -5,7 +5,10 @@ export interface ProjectDetails {
   };
   title: string;
   desc: ReactNode;
-  screenshots: [Screenshot, Screehshot, Screenshot];
+  screenshots: {
+    type: 'portrait' | 'landscape';
+    images: Screenshot[];
+  };
   techStack: string[];
 }
 
