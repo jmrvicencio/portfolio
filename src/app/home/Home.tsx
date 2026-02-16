@@ -10,8 +10,8 @@ import {
 import { AnimatePresence, motion } from 'motion/react';
 import { projects } from './Projects';
 import useSound from 'use-sound';
-import { activeProjectAtom } from '@/store/store';
 import { useAtom } from 'jotai';
+import { activeProjectAtom, muteAtom } from '@/store/store';
 import { Volume2, VolumeX } from 'lucide-react';
 
 import keepintabs1 from '/images/screenshots/keepintabs/1.png';
@@ -30,6 +30,7 @@ const Key = ({ index }: { index: number }) => {
   const [playHover, { stop }] = useSound(hoverSfx, { volume: 0.9 });
   const [playClick] = useSound(clickSfx);
 
+  const [mute, _] = useAtom(muteAtom);
   const [activeProject, setActiveProject] = useAtom(activeProjectAtom);
   const [mouseDown, setMouseDown] = useState(false);
 
@@ -43,9 +44,11 @@ const Key = ({ index }: { index: number }) => {
   // ----------------
 
   const handleClick = (e: MouseEvent) => {
-    console.log('set active project:', index);
-    stop();
-    playClick();
+    if (!mute) {
+      stop();
+      playClick();
+    }
+
     setActiveProject(index);
   };
 
@@ -63,9 +66,7 @@ const Key = ({ index }: { index: number }) => {
   };
 
   const handleMouseEnter = () => {
-    console.log('mouse enter');
-
-    if (!isActive) {
+    if (!isActive && !mute) {
       playHover();
     }
   };
@@ -283,6 +284,12 @@ const Hero = () => {
 };
 
 const Home = () => {
+  const [mute, setMute] = useAtom(muteAtom);
+
+  const handleClick = () => {
+    setMute((prev) => !prev);
+  };
+
   return (
     <div className="font-gabarito overflow-x-clip text-white">
       <header className="font-gabarito mb-20 flex justify-center text-white">
@@ -296,8 +303,8 @@ const Home = () => {
             <p>
               <a href="mailto:inkintime@gmail.com">Contact</a>
             </p>
-            <div className="flex items-center">
-              <Volume2 />
+            <div className="flex items-center cursor-pointer" onClick={handleClick}>
+              {mute ? <VolumeX /> : <Volume2 />}
             </div>
           </nav>
         </div>
