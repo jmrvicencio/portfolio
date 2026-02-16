@@ -1,5 +1,20 @@
-import { ReactNode } from 'react';
-import { motion } from 'motion/react';
+import {
+  MouseEvent,
+  PointerEvent,
+  ReactNode,
+  TouchEvent,
+  useEffect,
+  useRef,
+  useState,
+} from 'react';
+import {
+  AnimatePresence,
+  AnimationDefinition,
+  motion,
+  MotionValue,
+  useMotionValue,
+} from 'motion/react';
+import { projects } from './Projects';
 
 import keepintabs1 from '/images/screenshots/keepintabs/1.png';
 import keepintabs2 from '/images/screenshots/keepintabs/2.png';
@@ -8,17 +23,124 @@ import keyKeepintabs from '/images/hero/key-keepintabs.png';
 import monitor from '/images/hero/monitor.png';
 import link from '/images/hero/link.svg';
 import github from '/images/hero/github.svg';
+import arrow from '/images/hero/arrow.svg';
+import { activeProjectAtom } from '@/store/store';
+import { useAtom } from 'jotai';
+
+const Key = ({ index }: { index: number }) => {
+  const [activeProject, setActiveProject] = useAtom(activeProjectAtom);
+  const [mouseDown, setMouseDown] = useState(false);
+
+  const isActive = index == activeProject;
+  const keyDownPos = 20 + (mouseDown ? 1 : 0);
+  const hover = mouseDown ? keyDownPos + 2 : isActive ? keyDownPos : 3;
+  const y = (isActive ? keyDownPos : 0) + (mouseDown ? 20 : 0);
+
+  // ----------------
+  // Event Handler
+  // ----------------
+
+  const handleClick = (e: MouseEvent) => {
+    console.log('set active project:', index);
+    setActiveProject(index);
+  };
+
+  const handleMouseDownCapture = (e: MouseEvent) => {
+    e.preventDefault();
+    setMouseDown(true);
+  };
+
+  const handleTapStart = () => {
+    setMouseDown(true);
+  };
+
+  const handleMouseUp = () => {
+    setMouseDown(false);
+  };
+
+  const handleMouseLeave = () => {
+    setMouseDown(false);
+  };
+
+  return (
+    <motion.img
+      animate={{ y }}
+      whileHover={{ y: hover }}
+      transition={{
+        type: 'spring',
+        duration: 0.3,
+      }}
+      onClick={handleClick}
+      onMouseDownCapture={handleMouseDownCapture}
+      onTapStart={handleTapStart}
+      onMouseUp={handleMouseUp}
+      onMouseLeave={handleMouseLeave}
+      className="w-20"
+      src={keyKeepintabs}
+    />
+  );
+};
+
+const Keys = () => {
+  return (
+    <div className="relative h-fit rounded-xl p-1">
+      <div className="relative z-1 flex overflow-clip rounded-xl px-1">
+        <Key index={0} />
+        <Key index={1} />
+        <Key index={2} />
+      </div>
+      <div
+        className="border-journal-300 absolute bottom-0 left-0 z-0 h-20 w-full rounded-xl
+          border-2 bg-white/1 p-0.5"
+      >
+        <div className="bg-journal-900 h-full w-full rounded-xl" />
+      </div>
+    </div>
+  );
+};
 
 const Chip = ({ children }: { children: ReactNode }) => {
   return <div className="bg-journal-300 rounded-lg px-3 py-1 text-white">{children}</div>;
 };
 
-const Hero = () => {
+const Title = ({ children }: { children: ReactNode }) => {
+  const headingRef = useRef<HTMLHeadingElement>(null);
+
+  useEffect(() => {
+    const height = headingRef.current?.offsetHeight;
+  }, []);
+
   return (
-    <section className="relative flex w-full border border-white">
-      <div className="absolute top-80 left-1/2 z-1 h-150 w-[120dvw] -translate-x-1/2 bg-linear-to-t from-[#2B2625] via-[#3D322F] via-58% to-[#3B3331] blur-xs" />
+    <motion.h1
+      ref={headingRef}
+      initial={{ opacity: 0, y: 12 }}
+      animate={{ opacity: 1, y: 0 }}
+      exit={{ opacity: 0, y: -12 }}
+      transition={{ duration: 0.3 }}
+      className="mt-3 mb-10 text-7xl font-extrabold"
+    >
+      {children}
+    </motion.h1>
+  );
+};
+
+const Hero = () => {
+  const [activeProject, setActiveProject] = useAtom(activeProjectAtom);
+  const activeProjectRef = useRef(activeProject);
+  const project = projects[activeProject];
+
+  useEffect(() => {
+    activeProjectRef.current = activeProject;
+  }, [activeProject]);
+
+  return (
+    <section className="relative flex w-full">
+      <div
+        className="absolute top-80 left-1/2 z-1 h-150 w-[120dvw] -translate-x-1/2
+          bg-linear-to-t from-[#2B2625] via-[#3D322F] via-58% to-[#3B3331] blur-xs"
+      />
       <div className="z-1 grid w-full grid-cols-[8fr_7fr] gap-16">
-        <div className="flex flex-col gap-12 border">
+        <div className="flex flex-col gap-12">
           <div>
             <div className="text-accent-400 flex gap-8 text-2xl underline">
               <div className="flex gap-1">
@@ -30,12 +152,18 @@ const Hero = () => {
                 <p className="text-nowrap">github repo</p>
               </div>
             </div>
-            <h2 className="mt-3 mb-10 text-7xl font-extrabold">Keepin Tabs</h2>
+            <motion.div className="relative">
+              <AnimatePresence mode="wait">
+                <Title key={project.title}>{project.title}</Title>
+              </AnimatePresence>
+            </motion.div>
             <p>
-              A simple bill splitting app for sharing your expenses and <span className="text-accent-400 font-bold">Keepin’</span> track of
+              A simple bill splitting app for sharing your expenses and{' '}
+              <span className="text-accent-400 font-bold">Keepin&apos;</span> track of
               your <span className="text-accent-400 font-bold">Tabs</span> with each other
               <br className="mb-4" />
-              Creates groups and simplifies the budget to avoid cyclical repayments of debts!{' '}
+              Creates groups and simplifies the budget to avoid cyclical repayments of
+              debts!
             </p>
           </div>
           <div className="flex gap-4">
@@ -47,37 +175,57 @@ const Hero = () => {
             <h3 className="text-accent-400 mb-3">#TechStack</h3>
             <div className="flex flex-wrap gap-2">
               <Chip>React</Chip>
-              <Chip>React</Chip>
-              <Chip>React</Chip>
-              <Chip>React</Chip>
-              <Chip>React</Chip>
-              <Chip>React</Chip>
-              <Chip>React</Chip>
-              <Chip>React</Chip>
-              <Chip>React</Chip>
-              <Chip>React</Chip>
-              <Chip>React</Chip>
-              <Chip>React</Chip>
-              <Chip>React</Chip>
-              <Chip>React</Chip>
+              <Chip>Firebase</Chip>
+              <Chip>Firestore</Chip>
+              <Chip>TailwindCss</Chip>
+              <Chip>Vite</Chip>
+              <Chip>Typescript</Chip>
+              <Chip>React Router DOM</Chip>
+              <Chip>Jotai</Chip>
+              <Chip>Figma</Chip>
             </div>
           </div>
         </div>
-        <div className="border">
-          <div className="relative h-145 w-full border border-red-500">
+        <div>
+          <div className="relative mb-12 h-145 w-full">
             <img src={monitor} className="absolute min-h-143 min-w-165" />
           </div>
-          <div className="mx-auto w-fit">
-            <div className="relative h-fit rounded-xl p-1">
-              <div className="relative z-1 flex gap-1 overflow-clip rounded-xl px-1">
-                <motion.img whileHover={{ y: 12 }} className="w-20" src={keyKeepintabs} />
-                <motion.img whileHover={{ y: 12 }} className="w-20" src={keyKeepintabs} />
-                <motion.img whileHover={{ y: 12 }} className="w-20" src={keyKeepintabs} />
-              </div>
-              <div className="border-journal-300 absolute bottom-0 left-0 z-0 h-20 w-full rounded-xl border-2 bg-white/1 p-0.5">
-                <div className="bg-journal-900 h-full w-full rounded-xl" />
-              </div>
+          <div className="mx-auto flex w-fit flex-col items-center gap-8">
+            <div className="mx-auto w-fit">
+              <Keys />
             </div>
+            <motion.div
+              animate={{ y: [0, -16, 0] }}
+              transition={{
+                duration: 1.2,
+                ease: 'easeInOut',
+                times: [0, 0.5, 1],
+                repeat: Infinity,
+                repeatDelay: 1,
+              }}
+              className="border-journal-300 relative w-fit rounded-xl border-2 px-6 py-2
+                text-center"
+            >
+              <img
+                src={arrow}
+                className="absolute top-0 -translate-y-5/2 left-1/2 -translate-x-1/2"
+              />
+              My Projects
+              <motion.div
+                animate={{
+                  scale: [1, 1.2],
+                  opacity: [1, 0],
+                }}
+                transition={{
+                  duration: 1.2,
+                  ease: 'easeInOut',
+                  times: [0, 0.5],
+                  repeat: Infinity,
+                  repeatDelay: 1,
+                }}
+                className="border-2 -inset-0.5 absolute rounded-xl border-journal-300"
+              />
+            </motion.div>
           </div>
         </div>
       </div>

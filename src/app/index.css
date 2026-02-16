@@ -29,3 +29,9 @@
 body {
   background-color: var(--color-journal-800);
 }
+
+@layer base {
+  ::selection {
+    @apply bg-accent-400 text-black;
+  }
+}
