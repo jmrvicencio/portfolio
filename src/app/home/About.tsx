@@ -1,22 +1,19 @@
-import { motion } from 'motion/react';
-
+import { RefObject } from 'react';
 import aboutMe from '/images/about-me.png';
+import Label from '@/components/Label';
 
-const About = () => {
+const About = ({ ref }: { ref?: RefObject<HTMLDivElement | null> }) => {
   return (
-    <motion.section
-      layout
+    <section
+      ref={ref}
       className="max-w-300 flex border-red-500 gap-30 text-2xl font-gabarito"
     >
       <div className="w-1 grow-3">
-        <div className="w-fit mb-12 pl-4">
-          <div className="flex flex-row w-full items-center gap-4 mb-4">
-            <h3 className="text-accent-400 flex w-fit whitespace-nowrap">About Me</h3>
-            <div className="h-0.5 w-full bg-journal-300" />
-          </div>
-          <h2 className="text-7xl">
+        <div className="w-fit mb-12">
+          <Label>About Me</Label>
+          <h3 className="text-7xl ml-4">
             Call me <span className="font-extrabold text-accent-400">Kyle</span>
-          </h2>
+          </h3>
         </div>
         <p className="not-last:mb-8">
           I am a former Web Designer transitioning to Web Development, with a background
@@ -37,7 +34,7 @@ const About = () => {
           <img src={aboutMe} className="absolute bottom-0" />
         </div>
       </div>
-    </motion.section>
+    </section>
   );
 };
 

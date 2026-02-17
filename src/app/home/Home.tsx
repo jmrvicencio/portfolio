@@ -2,6 +2,7 @@ import {
   MouseEvent,
   PointerEvent,
   ReactNode,
+  RefObject,
   TouchEvent,
   useEffect,
   useRef,
@@ -26,6 +27,8 @@ import arrow from '/images/hero/arrow.svg';
 import hoverSfx from '/sounds/hover3.mp3';
 import clickSfx from '/sounds/click.mp3';
 import About from './About';
+import Skillset from './Skillset';
+import Contact from './Contact';
 
 const Key = ({ index }: { index: number }) => {
   const [playbackRate, setPlaybackRate] = useState(0.0);
@@ -139,7 +142,7 @@ const Title = ({ children }: { children: ReactNode }) => {
   }, []);
 
   return (
-    <motion.h1
+    <motion.h2
       ref={headingRef}
       initial={{ opacity: 0, y: 12 }}
       animate={{ opacity: 1, y: 0 }}
@@ -148,11 +151,11 @@ const Title = ({ children }: { children: ReactNode }) => {
       className="mt-3 mb-10 text-7xl font-extrabold"
     >
       {children}
-    </motion.h1>
+    </motion.h2>
   );
 };
 
-const Hero = () => {
+const Hero = ({ ref }: { ref?: RefObject<HTMLDivElement | null> }) => {
   const [activeProject, setActiveProject] = useAtom(activeProjectAtom);
   const activeProjectRef = useRef(activeProject);
   const project = projects[activeProject];
@@ -162,7 +165,7 @@ const Hero = () => {
   }, [activeProject]);
 
   return (
-    <section className="relative flex w-full">
+    <section ref={ref} className="relative flex w-full">
       <div
         className="absolute top-80 left-1/2 z-1 h-150 w-[120dvw] -translate-x-1/2
           bg-linear-to-t from-[#2B2625] via-[#3D322F] via-58% to-[#3B3331] blur-xs"
@@ -288,10 +291,22 @@ const Hero = () => {
 };
 
 const Home = () => {
+  const heroRef = useRef<HTMLDivElement>(null);
+  const aboutRef = useRef<HTMLDivElement>(null);
+  const skillsetRef = useRef<HTMLDivElement>(null);
+  const contactRef = useRef<HTMLDivElement>(null);
+
   const [mute, setMute] = useAtom(muteAtom);
 
   const handleClick = () => {
     setMute((prev) => !prev);
+  };
+
+  const handleNavClicked = (ref: RefObject<HTMLDivElement | null>) => () => {
+    ref.current?.scrollIntoView({
+      behavior: 'smooth',
+      block: 'start',
+    });
   };
 
   return (
@@ -304,8 +319,8 @@ const Home = () => {
           <nav className="flex gap-12 text-xl">
             <p>About</p>
             <p>Projects</p>
-            <p>
-              <a href="mailto:inkintime@gmail.com">Contact</a>
+            <p onClick={handleNavClicked(contactRef)} className="cursor-pointer">
+              Contact
             </p>
             <div className="flex items-center cursor-pointer" onClick={handleClick}>
               <motion.div
@@ -318,12 +333,14 @@ const Home = () => {
           </nav>
         </div>
       </header>
-      <main
+      <motion.main
         className="mx-auto flex flex-col gap-64 h-2000 max-w-300 justify-start text-2xl"
       >
-        <Hero />
+        <Hero ref={heroRef} />
         <About />
-      </main>
+        <Skillset />
+        <Contact ref={contactRef} />
+      </motion.main>
     </div>
   );
 };
