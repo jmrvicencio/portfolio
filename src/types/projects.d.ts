@@ -1,4 +1,5 @@
 export interface ProjectDetails {
+  monitorImg: string;
   links: {
     live?: string;
     github?: string;

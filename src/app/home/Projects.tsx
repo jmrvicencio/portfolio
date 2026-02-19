@@ -1,6 +1,8 @@
 import { Fragment } from 'react';
 import { ProjectDetails } from '@/types/projects';
 
+import keepintabsMonitor from '/images/hero/keepintabs.gif';
+import keepintabsGlow from '/images/hero/keepintabs-glow.png';
 import keepintabs1 from '/images/screenshots/keepintabs/1.png';
 import keepintabs2 from '/images/screenshots/keepintabs/2.png';
 import keepintabs3 from '/images/screenshots/keepintabs/3.png';
@@ -9,6 +11,8 @@ import guada2 from '/images/screenshots/guada/guada2.png';
 import guada3 from '/images/screenshots/guada/guada3.png';
 
 export const keepinTabs: ProjectDetails = {
+  monitorImg: keepintabsMonitor,
+  glowImg: keepintabsGlow,
   links: {
     live: 'asd',
     github: 'asd',
@@ -48,6 +52,8 @@ export const keepinTabs: ProjectDetails = {
 };
 
 export const guadalupe: ProjectDetails = {
+  monitorImg: keepintabsGlow,
+  glowImg: keepintabsGlow,
   links: {
     live: 'asd',
   },

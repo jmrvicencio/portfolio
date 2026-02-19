@@ -7,11 +7,11 @@ import { RefObject } from 'react';
 
 const Contact = ({ ref }: { ref?: RefObject<HTMLDivElement | null> }) => {
   return (
-    <section ref={ref}>
+    <section ref={ref} className="mb-32">
       <Label>Contact</Label>
       <div
         className="flex text-center items-center relative flex-col gap-8 justify-center
-          h-150 border"
+          h-150"
       >
         <h2 className="font-extrabold text-8xl">
           Get in <span className="text-accent-400">Touch!</span>
@@ -28,10 +28,10 @@ const Contact = ({ ref }: { ref?: RefObject<HTMLDivElement | null> }) => {
           <a href="mailto:inkintime@gmail.com">
             <img className="cursor-pointer" src={email} />
           </a>
-          <a href="">
+          <a href="https://github.com/jmrvicencio">
             <img className="cursor-pointer" src={github} />
           </a>
-          <a href="">
+          <a href="https://www.linkedin.com/in/john-kyle-vicencio-898b89114/">
             <img className="cursor-pointer" src={linkedin} />
           </a>
         </div>

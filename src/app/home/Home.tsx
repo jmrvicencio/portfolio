@@ -20,6 +20,9 @@ import keepintabs2 from '/images/screenshots/keepintabs/2.png';
 import keepintabs3 from '/images/screenshots/keepintabs/3.png';
 import keyKeepintabs from '/images/hero/key-keepintabs.png';
 import monitor from '/images/hero/monitor.png';
+import keepintabsHolo from '/images/hero/keepintabs.gif';
+import keepintabsGlow from '/images/hero/keepintabs-glow.png';
+import screen from '/images/hero/screen.png';
 import link from '/images/hero/link.svg';
 import github from '/images/hero/github.svg';
 import arrow from '/images/hero/arrow.svg';
@@ -246,6 +249,42 @@ const Hero = ({ ref }: { ref?: RefObject<HTMLDivElement | null> }) => {
         <div>
           <div className="relative mb-12 h-145 w-full">
             <img src={monitor} className="absolute min-h-143 min-w-165" />
+            <motion.img
+              key={`${project.title}-img`}
+              src={project.monitorImg}
+              initial={{ scale: 0.2 }}
+              animate={{ scale: 1 }}
+              transition={{
+                duration: 0.5,
+                type: 'spring',
+              }}
+              className="absolute top-21 left-28 w-40"
+            />
+            <motion.img
+              key={`${project.title}-glow`}
+              src={project.glowImg}
+              initial={{ scale: 0.2 }}
+              animate={{ scale: 1 }}
+              transition={{
+                duration: 0.5,
+                type: 'spring',
+              }}
+              className="absolute top-21 left-28 w-40"
+            />
+            <motion.img
+              key={`${project.title}-screen`}
+              initial={{ scale: 1 }}
+              animate={{
+                scaleX: [1, 1, 0],
+                scaleY: [1, 0.1, 0.1],
+                opacity: [1, 0.4, 0],
+              }}
+              transition={{
+                duration: 0.15,
+              }}
+              src={screen}
+              className="absolute top-18 left-16"
+            />
           </div>
           <div className="mx-auto flex w-fit flex-col items-center gap-8">
             <div className="mx-auto w-fit">
@@ -317,8 +356,8 @@ const Home = () => {
             Kyle Vicencio<span className="text-accent-400">.</span>
           </h1>
           <nav className="flex gap-12 text-xl">
-            <p>About</p>
             <p>Projects</p>
+            <p>About</p>
             <p onClick={handleNavClicked(contactRef)} className="cursor-pointer">
               Contact
             </p>
@@ -334,13 +373,19 @@ const Home = () => {
         </div>
       </header>
       <motion.main
-        className="mx-auto flex flex-col gap-64 h-2000 max-w-300 justify-start text-2xl"
+        className="mx-auto flex flex-col gap-84 max-w-300 justify-start text-2xl"
       >
         <Hero ref={heroRef} />
         <About />
         <Skillset />
         <Contact ref={contactRef} />
       </motion.main>
+      <footer
+        className="text-sm text-journal-300 max-w-300 p-8 border-t border-journal-300
+          mx-auto"
+      >
+        <span className="font-bold">© 2026 John Vicencio.</span> All Rights Reserved
+      </footer>
     </div>
   );
 };
