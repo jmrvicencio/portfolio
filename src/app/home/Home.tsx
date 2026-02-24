@@ -17,13 +17,8 @@ import { Volume2, VolumeX } from 'lucide-react';
 import Lightbox from 'yet-another-react-lightbox';
 import 'yet-another-react-lightbox/styles.css';
 
-import keepintabs1 from '/images/screenshots/keepintabs/1.png';
-import keepintabs2 from '/images/screenshots/keepintabs/2.png';
-import keepintabs3 from '/images/screenshots/keepintabs/3.png';
 import keyKeepintabs from '/images/hero/key-keepintabs.png';
 import monitor from '/images/hero/monitor.png';
-import keepintabsHolo from '/images/hero/keepintabs.gif';
-import keepintabsGlow from '/images/hero/keepintabs-glow.png';
 import screen from '/images/hero/screen.png';
 import link from '/images/hero/link.svg';
 import github from '/images/hero/github.svg';
@@ -114,6 +109,7 @@ const Keys = () => {
         <Key index={0} />
         <Key index={1} />
         <Key index={2} />
+        <Key index={3} />
       </div>
       <div
         className="border-journal-300 absolute bottom-0 left-0 z-0 h-20 w-full rounded-xl
@@ -195,7 +191,7 @@ const Hero = ({ ref }: { ref?: RefObject<HTMLDivElement | null> }) => {
                     animate={{ opacity: 1, scale: 1 }}
                     exit={{ opacity: 0, scale: 0.5 }}
                   >
-                    <a href="test" className="flex gap-1">
+                    <a target="_blank" href={project.links.live} className="flex gap-1">
                       <img src={link} />
                       <p className="text-nowrap">live site</p>
                     </a>
@@ -209,7 +205,7 @@ const Hero = ({ ref }: { ref?: RefObject<HTMLDivElement | null> }) => {
                     animate={{ opacity: 1, scale: 1 }}
                     exit={{ opacity: 0, scale: 0.5 }}
                   >
-                    <a href="test" className="flex gap-1">
+                    <a target="_blank" href={project.links.github} className="flex gap-1">
                       <img src={github} />
                       <p className="text-nowrap">github repo</p>
                     </a>
@@ -273,7 +269,7 @@ const Hero = ({ ref }: { ref?: RefObject<HTMLDivElement | null> }) => {
                 duration: 0.5,
                 type: 'spring',
               }}
-              className="absolute top-21 left-28 w-40"
+              className="absolute top-19 left-17 w-64"
             />
             <motion.img
               key={`${project.title}-glow`}
@@ -284,7 +280,7 @@ const Hero = ({ ref }: { ref?: RefObject<HTMLDivElement | null> }) => {
                 duration: 0.5,
                 type: 'spring',
               }}
-              className="absolute top-21 left-28 w-40"
+              className="absolute top-19 left-17 w-64"
             />
             <motion.img
               key={`${project.title}-screen`}
