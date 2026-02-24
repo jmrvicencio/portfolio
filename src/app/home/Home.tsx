@@ -14,6 +14,8 @@ import useSound from 'use-sound';
 import { useAtom } from 'jotai';
 import { activeProjectAtom, muteAtom } from '@/store/store';
 import { Volume2, VolumeX } from 'lucide-react';
+import Lightbox from 'yet-another-react-lightbox';
+import 'yet-another-react-lightbox/styles.css';
 
 import keepintabs1 from '/images/screenshots/keepintabs/1.png';
 import keepintabs2 from '/images/screenshots/keepintabs/2.png';
@@ -159,6 +161,7 @@ const Title = ({ children }: { children: ReactNode }) => {
 };
 
 const Hero = ({ ref }: { ref?: RefObject<HTMLDivElement | null> }) => {
+  const [lightbox, setLightbox] = useState(false);
   const [activeProject, setActiveProject] = useAtom(activeProjectAtom);
   const activeProjectRef = useRef(activeProject);
   const project = projects[activeProject];
@@ -169,6 +172,14 @@ const Hero = ({ ref }: { ref?: RefObject<HTMLDivElement | null> }) => {
 
   return (
     <section ref={ref} className="relative flex w-full">
+      <Lightbox
+        open={lightbox}
+        close={() => setLightbox(false)}
+        slides={[
+          { src: project.screenshots.images[0] },
+          { src: project.screenshots.images[1] },
+        ]}
+      />
       <div
         className="absolute top-80 left-1/2 z-1 h-150 w-[120dvw] -translate-x-1/2
           bg-linear-to-t from-[#2B2625] via-[#3D322F] via-58% to-[#3B3331] blur-xs"
@@ -233,7 +244,11 @@ const Hero = ({ ref }: { ref?: RefObject<HTMLDivElement | null> }) => {
               className="flex gap-4"
             >
               {project.screenshots.images.map((image) => (
-                <img src={image} className="w-1 shrink grow" />
+                <img
+                  onClick={() => setLightbox(true)}
+                  src={image}
+                  className="w-1 shrink grow cursor-pointer"
+                />
               ))}
             </motion.div>
           </AnimatePresence>
@@ -356,7 +371,9 @@ const Home = () => {
             Kyle Vicencio<span className="text-accent-400">.</span>
           </h1>
           <nav className="flex gap-12 text-xl">
-            <p>Projects</p>
+            <p onClick={handleNavClicked(heroRef)} className="cursor-pointer">
+              Projects
+            </p>
             <p onClick={handleNavClicked(aboutRef)} className="cursor-pointer">
               About
             </p>
