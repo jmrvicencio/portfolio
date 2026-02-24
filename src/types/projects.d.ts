@@ -1,5 +1,6 @@
 export interface ProjectDetails {
   monitorImg: string;
+  glowImg: string;
   links: {
     live?: string;
     github?: string;

@@ -1,6 +1,6 @@
 import Label from '@/components/Label';
 import asterisk from '/images/asterisk.svg';
-import { ReactNode } from 'react';
+import { ReactNode, RefObject } from 'react';
 import { Asterisk } from 'lucide-react';
 
 const skillset = {
@@ -33,9 +33,9 @@ const Entry = ({ title, desc }: { title: string; desc: string }) => {
   );
 };
 
-const Skillset = () => {
+const Skillset = ({ ref }: { ref?: RefObject<HTMLDivElement | null> }) => {
   return (
-    <section>
+    <section ref={ref}>
       <Label>Skillset</Label>
       <div className="grid grid-cols-3 gap-6 mt-12">
         {Object.entries(skillset).map(([title, items]) => (

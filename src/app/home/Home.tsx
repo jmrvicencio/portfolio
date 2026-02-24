@@ -357,7 +357,12 @@ const Home = () => {
           </h1>
           <nav className="flex gap-12 text-xl">
             <p>Projects</p>
-            <p>About</p>
+            <p onClick={handleNavClicked(aboutRef)} className="cursor-pointer">
+              About
+            </p>
+            <p onClick={handleNavClicked(skillsetRef)} className="cursor-pointer">
+              Skillset
+            </p>
             <p onClick={handleNavClicked(contactRef)} className="cursor-pointer">
               Contact
             </p>
@@ -376,8 +381,8 @@ const Home = () => {
         className="mx-auto flex flex-col gap-84 max-w-300 justify-start text-2xl"
       >
         <Hero ref={heroRef} />
-        <About />
-        <Skillset />
+        <About ref={aboutRef} />
+        <Skillset ref={skillsetRef} />
         <Contact ref={contactRef} />
       </motion.main>
       <footer
