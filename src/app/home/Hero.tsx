@@ -35,8 +35,11 @@ import { useWidthCheck } from '@/hooks/useWidthCheck';
 
 const Key = ({ index }: { index: number }) => {
   const [playbackRate, setPlaybackRate] = useState(0.0);
-  const [playHover, { stop }] = useSound(hoverSfx, { playbackRate: 1 + playbackRate });
-  const [playClick] = useSound(clickSfx, { playbackRate: 1 + playbackRate });
+  const [playHover, { stop }] = useSound(hoverSfx, {
+    volume: 1.2,
+    playbackRate: 1 + playbackRate,
+  });
+  const [playClick] = useSound(clickSfx, { volume: 1.2, playbackRate: 1 + playbackRate });
 
   const [mute, _] = useAtom(muteAtom);
   const [activeProject, setActiveProject] = useAtom(activeProjectAtom);

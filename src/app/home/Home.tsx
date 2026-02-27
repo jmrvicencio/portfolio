@@ -36,6 +36,7 @@ const MobileMenu = ({
 }: {
   pageRefs: RefObject<HTMLDivElement | null>[];
 }) => {
+  const [mute, setMute] = useAtom(muteAtom);
   const [mobileMenu, setMobileMenu] = useAtom(mobileMenuAtom);
 
   useLayoutEffect(() => {
@@ -84,6 +85,17 @@ const MobileMenu = ({
             <p onClick={handleNavClicked(contactRef)} className="cursor-pointer">
               Contact
             </p>
+            <div
+              className="flex justify-center w-full items-center cursor-pointer"
+              onClick={() => setMute((prev) => !prev)}
+            >
+              <motion.div
+                animate={{ opacity: !mute ? 1 : 0.4 }}
+                transition={{ duration: 0.1 }}
+              >
+                {mute ? <VolumeX className="w-8 h-8" /> : <Volume2 className="w-8 h-8" />}
+              </motion.div>
+            </div>
           </nav>
         </motion.div>
       )}
@@ -130,7 +142,7 @@ const Home = () => {
   // Event Handlers
   // ---------------
 
-  const handleClick = () => {
+  const handleMuteClicked = () => {
     setMute((prev) => !prev);
   };
 
@@ -169,7 +181,7 @@ const Home = () => {
             <p onClick={handleNavClicked(contactRef)} className="cursor-pointer">
               Contact
             </p>
-            <div className="flex items-center cursor-pointer" onClick={handleClick}>
+            <div className="flex items-center cursor-pointer" onClick={handleMuteClicked}>
               <motion.div
                 animate={{ opacity: !mute ? 1 : 0.4 }}
                 transition={{ duration: 0.1 }}
