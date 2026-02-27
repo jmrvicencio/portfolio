@@ -39,7 +39,7 @@ const Skillset = ({ ref }: { ref?: RefObject<HTMLDivElement | null> }) => {
       <Label>Skillset</Label>
       <div className="grid grid-cols-3 gap-6 mt-12">
         {Object.entries(skillset).map(([title, items]) => (
-          <Entry title={title} desc={items} />
+          <Entry key={title} title={title} desc={items} />
         ))}
       </div>
     </section>

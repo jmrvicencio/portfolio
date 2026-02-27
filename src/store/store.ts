@@ -5,3 +5,4 @@ export const myStore = createStore();
 export const activeProjectAtom = atom(0);
 export const muteAtom = atom(false);
 export const mobileMenuAtom = atom(false);
+export const widthCheckAtom = atom({ isSm: true, isMd: true, isLg: true });
