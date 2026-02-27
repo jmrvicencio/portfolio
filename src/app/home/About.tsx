@@ -6,12 +6,13 @@ const About = ({ ref }: { ref?: RefObject<HTMLDivElement | null> }) => {
   return (
     <section
       ref={ref}
-      className="max-w-300 flex border-red-500 gap-30 text-2xl font-gabarito"
+      className="max-w-300 px-8 flex md:flex-row flex-col border-red-500 gap-30 text-xl
+        sm:text-2xl font-gabarito"
     >
-      <div className="w-1 grow-3">
+      <div className="md:w-1 w-full md:grow-3">
         <div className="w-fit mb-12">
           <Label>About Me</Label>
-          <h3 className="text-7xl ml-4">
+          <h3 className="text-6xl md:text-7xl md:ml-4">
             Call me <span className="font-extrabold text-accent-400">Kyle</span>
           </h3>
         </div>
@@ -29,8 +30,8 @@ const About = ({ ref }: { ref?: RefObject<HTMLDivElement | null> }) => {
           growing technical foundation.{' '}
         </p>
       </div>
-      <div className="w-1 grow-2 h-full items-center flex">
-        <div className="aspect-square w-full relative">
+      <div className="md:w-1 w-full md:grow-2 md:h-full justify-center items-center flex">
+        <div className="aspect-square w-full max-w-100 relative">
           <img src={aboutMe} className="absolute bottom-0" />
         </div>
       </div>

@@ -79,14 +79,6 @@ const MobileMenu = ({
           </nav>
         </motion.div>
       )}
-      {/* {mobileMenu && (
-        <motion.div
-          // initial={{ x: '100%' }}
-          // animate={{ x: '0%' }}
-          // exit={{ x: '100%' }}
-          className="absolute w-dvw h-dvh top-0 left-0 z-20 bg-red"
-        ></motion.div>
-      )} */}
     </AnimatePresence>
   );
 };
@@ -167,7 +159,8 @@ const Home = () => {
         </div>
       </header>
       <motion.main
-        className="mx-auto flex flex-col gap-84 max-w-310 justify-start text-2xl"
+        className="mx-auto flex flex-col gap-32 md:gap-84 max-w-310 justify-start
+          text-2xl"
       >
         <Hero ref={heroRef} />
         <About ref={aboutRef} />
@@ -176,7 +169,7 @@ const Home = () => {
       </motion.main>
       <footer
         className="text-sm text-journal-300 max-w-300 p-8 border-t border-journal-300
-          mx-auto"
+          md:mx-auto mx-8"
       >
         <span className="font-bold">© 2026 John Vicencio.</span> All Rights Reserved
       </footer>

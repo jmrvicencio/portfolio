@@ -7,13 +7,13 @@ import { RefObject } from 'react';
 
 const Contact = ({ ref }: { ref?: RefObject<HTMLDivElement | null> }) => {
   return (
-    <section ref={ref} className="mb-32">
+    <section ref={ref} className="md:mb-32 px-8 sm:text-2xl text-xl">
       <Label>Contact</Label>
       <div
         className="flex text-center items-center relative flex-col gap-8 justify-center
           h-150"
       >
-        <h2 className="font-extrabold text-8xl">
+        <h2 className="font-extrabold text-6xl md:text-8xl">
           Get in <span className="text-accent-400">Touch!</span>
         </h2>
         <div className="max-w-100 text-journal-100">
