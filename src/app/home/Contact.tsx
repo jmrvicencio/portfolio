@@ -25,13 +25,16 @@ const Contact = ({ ref }: { ref?: RefObject<HTMLDivElement | null> }) => {
           </p>
         </div>
         <div className="flex gap-4">
-          <a href="mailto:inkintime@gmail.com">
+          <a target="_blank" href="mailto:inkintime@gmail.com">
             <img className="cursor-pointer" src={email} />
           </a>
-          <a href="https://github.com/jmrvicencio">
+          <a target="_blank" href="https://github.com/jmrvicencio">
             <img className="cursor-pointer" src={github} />
           </a>
-          <a href="https://www.linkedin.com/in/john-kyle-vicencio-898b89114/">
+          <a
+            target="_blank"
+            href="https://www.linkedin.com/in/john-kyle-vicencio-898b89114/"
+          >
             <img className="cursor-pointer" src={linkedin} />
           </a>
         </div>

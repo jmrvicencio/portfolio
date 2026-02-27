@@ -17,7 +17,7 @@ import {
   muteAtom,
   widthCheckAtom,
 } from '@/store/store';
-import { Menu, Volume2, VolumeX } from 'lucide-react';
+import { Menu, Volume2, VolumeX, X } from 'lucide-react';
 
 import Hero from './Hero';
 import About from './About';
@@ -61,8 +61,12 @@ const MobileMenu = ({
             ease: 'easeInOut',
           }}
           className="fixed w-dvw h-dvh top-0 left-0 z-20 bg-journal-900/70
-            backdrop-blur-3xl flex items-center justify-center border"
+            backdrop-blur-3xl flex items-center justify-center"
         >
+          <X
+            className="absolute top-8 right-8 cursor-pointer w-8 h-8"
+            onClick={() => setMobileMenu(false)}
+          />
           <nav className="flex flex-col text-3xl text-center gap-12 font-bold">
             <p onClick={handleNavClicked(heroRef)} className="cursor-pointer">
               Projects
