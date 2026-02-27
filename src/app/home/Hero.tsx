@@ -98,7 +98,7 @@ const Key = ({ index }: { index: number }) => {
       onMouseUp={handleMouseUp}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
-      className="w-[5em]"
+      className="w-[5em] select-none"
       src={keyKeepintabs}
     />
   );
