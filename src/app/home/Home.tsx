@@ -9,7 +9,13 @@ import {
   useRef,
   useState,
 } from 'react';
-import { AnimatePresence, motion } from 'motion/react';
+import {
+  AnimatePresence,
+  motion,
+  useMotionValueEvent,
+  useScroll,
+  useTransform,
+} from 'motion/react';
 import { useAtom } from 'jotai';
 import {
   activeProjectAtom,
@@ -42,10 +48,8 @@ const MobileMenu = ({
 
   const handleNavClicked = (ref: RefObject<HTMLDivElement | null>) => () => {
     setMobileMenu(false);
-    ref.current?.scrollIntoView({
-      behavior: 'smooth',
-      block: 'start',
-    });
+    const top = (ref.current?.offsetTop ?? 0) - 100;
+    window.scrollTo({ top, behavior: 'smooth' });
   };
 
   return (
@@ -93,14 +97,25 @@ const Home = () => {
   const skillsetRef = useRef<HTMLDivElement>(null);
   const contactRef = useRef<HTMLDivElement>(null);
 
-  const { isSm, isMd, isLg } = useWidthCheck();
   const [widthCheck, _] = useAtom(widthCheckAtom);
+  const { scrollY } = useScroll();
+
+  const { isSm, isMd, isLg } = useWidthCheck();
   const [mute, setMute] = useAtom(muteAtom);
   const [__, setMobileMenu] = useAtom(mobileMenuAtom);
+  const [headerBgOpacity, setHeaderBgOpacity] = useState(false);
+
+  const changeHeaderBgOpacity = (val: boolean) => {
+    if (val != headerBgOpacity) setHeaderBgOpacity(val);
+  };
 
   // ---------------
   // Effects
   // ---------------
+
+  useMotionValueEvent(scrollY, 'change', (scroll) => {
+    changeHeaderBgOpacity(scroll == 0 ? false : true);
+  });
 
   useLayoutEffect(() => {
     // console.log(isSm, isMd, isLg);
@@ -120,16 +135,23 @@ const Home = () => {
   };
 
   const handleNavClicked = (ref: RefObject<HTMLDivElement | null>) => () => {
-    ref.current?.scrollIntoView({
-      behavior: 'smooth',
-      block: 'start',
-    });
+    const top = (ref.current?.offsetTop ?? 0) - 180;
+    window.scrollTo({ top, behavior: 'smooth' });
   };
 
   return (
     <div className="font-gabarito overflow-x-clip text-white">
       <MobileMenu pageRefs={[heroRef, aboutRef, skillsetRef, contactRef]} />
-      <header className="font-gabarito mb-20 flex justify-center text-white">
+      <header
+        className="sticky top-0 z-50 font-gabarito mb-20 flex justify-center text-white"
+      >
+        <motion.div
+          animate={{
+            opacity: headerBgOpacity ? 1 : 0,
+          }}
+          className="bg-linear-to-b from-journal-1000/90 via-journal-1000/50 via-70%
+            from-10% to-journal-1000/0 absolute w-full h-full top-0 left-0 -z-1"
+        ></motion.div>
         <div className="mx-4 sm:mx-6 flex w-full max-w-336 items-end justify-between py-6">
           <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold">
             Kyle Vicencio<span className="text-accent-400">.</span>
