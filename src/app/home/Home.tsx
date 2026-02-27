@@ -64,7 +64,7 @@ const MobileMenu = ({
             type: 'tween',
             ease: 'easeInOut',
           }}
-          className="fixed w-dvw h-dvh top-0 left-0 z-20 bg-journal-900/70
+          className="fixed w-dvw h-dvh top-0 left-0 z-30 bg-journal-900/70
             backdrop-blur-3xl flex items-center justify-center"
         >
           <X
@@ -143,7 +143,7 @@ const Home = () => {
     <div className="font-gabarito overflow-x-clip text-white">
       <MobileMenu pageRefs={[heroRef, aboutRef, skillsetRef, contactRef]} />
       <header
-        className="sticky top-0 z-50 font-gabarito mb-20 flex justify-center text-white"
+        className="sticky top-0 z-20 font-gabarito mb-20 flex justify-center text-white"
       >
         <motion.div
           animate={{
