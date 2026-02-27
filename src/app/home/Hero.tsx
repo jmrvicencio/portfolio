@@ -45,21 +45,13 @@ const Key = ({ index }: { index: number }) => {
   const isActive = index == activeProject;
   const keyDownPos = 20 + (mouseDown ? 1 : 0);
   const hover = mouseDown ? keyDownPos + 2 : isActive ? keyDownPos : 3;
-  const y = (isActive ? keyDownPos : 0) + (mouseDown ? 20 : 0);
+  const y = (isActive ? keyDownPos : 0) + (mouseDown ? 5 : 0);
 
   // ----------------
   // Event Handler
   // ----------------
 
-  const handleClick = (e: MouseEvent) => {
-    if (!mute) {
-      stop();
-      playClick();
-      setPlaybackRate(Math.random() * 0.3 - 0.15);
-    }
-
-    setActiveProject(index);
-  };
+  const handleClick = (e: MouseEvent) => {};
 
   const handleMouseDownCapture = (e: MouseEvent) => {
     e.preventDefault();
@@ -67,7 +59,14 @@ const Key = ({ index }: { index: number }) => {
   };
 
   const handleTapStart = () => {
+    if (!mute) {
+      stop();
+      playClick();
+      setPlaybackRate(Math.random() * 0.3 - 0.15);
+    }
+
     setMouseDown(true);
+    setActiveProject(index);
   };
 
   const handleMouseUp = () => {
