@@ -30,7 +30,6 @@ const MobileMenu = ({
 }: {
   pageRefs: RefObject<HTMLDivElement | null>[];
 }) => {
-  const { isSm, isMd, isLg } = useWidthCheck();
   const [mobileMenu, setMobileMenu] = useAtom(mobileMenuAtom);
 
   useLayoutEffect(() => {
@@ -99,7 +98,7 @@ const Home = () => {
   const contactRef = useRef<HTMLDivElement>(null);
 
   const { isSm, isMd, isLg } = useWidthCheck();
-  const [_, setWidthCheck] = useAtom(widthCheckAtom);
+  const [widthCheck, _] = useAtom(widthCheckAtom);
   const [mute, setMute] = useAtom(muteAtom);
   const [__, setMobileMenu] = useAtom(mobileMenuAtom);
 
@@ -108,11 +107,12 @@ const Home = () => {
   // ---------------
 
   useLayoutEffect(() => {
-    setWidthCheck({
+    // console.log(isSm, isMd, isLg);
+    widthCheck.current = {
       isSm,
       isMd,
       isLg,
-    });
+    };
   }, [isSm, isMd, isLg]);
 
   // ---------------

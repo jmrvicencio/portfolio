@@ -168,7 +168,7 @@ const Title = ({ children }: { children: ReactNode }) => {
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: -12 }}
       transition={{ duration: 0.3 }}
-      className="mt-3 mb-10 text-7xl font-extrabold"
+      className="mt-3 mb-10 text-5xl sm:text-6xl md:text-7xl font-extrabold"
     >
       {children}
     </motion.h2>
@@ -181,7 +181,12 @@ const Monitor = () => {
   const [activeProject, setActiveProject] = useAtom(activeProjectAtom);
   const project = projects[activeProject];
 
-  const [{ isSm, isMd, isLg }] = useAtom(widthCheckAtom);
+  const [widthCheck] = useAtom(widthCheckAtom);
+  const { isSm, isMd, isLg } = widthCheck.current ?? {
+    isSm: true,
+    isMd: true,
+    isLg: true,
+  };
 
   // -------------------------
   // Effects
@@ -189,8 +194,23 @@ const Monitor = () => {
 
   useLayoutEffect(() => {
     const measure = () => {
+      console.log('change width');
+      const widthCheckRef = widthCheck;
+      const {
+        isSm: _isSm,
+        isMd: _isMd,
+        isLg: _isLg,
+      } = widthCheckRef.current ?? {
+        isSm: true,
+        isMd: true,
+        isLg: true,
+      };
+
       if (monitorRef.current) {
-        const fontSize = monitorRef.current.offsetWidth / 33.125;
+        const fontSize = _isMd
+          ? Math.min(monitorRef.current.offsetWidth / 40, 11)
+          : monitorRef.current.offsetWidth / 33.125;
+        console.log(fontSize);
         monitorRef.current.style.fontSize = `${fontSize}px`;
       }
     };
@@ -204,44 +224,52 @@ const Monitor = () => {
 
   return (
     <>
-      <div ref={monitorRef} className="relative mb-12 h-[36.25em] w-full text-base">
-        <img src={monitor} className="absolute min-h-[35.75em] min-w-[41.25em]" />
-        <motion.img
-          key={`${project.title}-img`}
-          src={project.monitorImg}
-          initial={{ scale: 0.2 }}
-          animate={{ scale: 1 }}
-          transition={{
-            duration: 0.5,
-            type: 'spring',
-          }}
-          className="absolute top-[4.75em] left-[4.25em] w-[16em]"
-        />
-        <motion.img
-          key={`${project.title}-glow`}
-          src={project.glowImg}
-          initial={{ scale: 0.2 }}
-          animate={{ scale: 1 }}
-          transition={{
-            duration: 0.5,
-            type: 'spring',
-          }}
-          className="absolute top-[4.75em] left-[4.25em] w-[16em]"
-        />
-        <motion.img
-          key={`${project.title}-screen`}
-          initial={{ scale: 1 }}
-          animate={{
-            scaleX: [1, 1, 0],
-            scaleY: [1, 0.1, 0.1],
-            opacity: [1, 0.4, 0],
-          }}
-          transition={{
-            duration: 0.15,
-          }}
-          src={screen}
-          className="absolute top-[4.5em] left-[4em] w-[16.5em] h-[14.3em]"
-        />
+      <div
+        ref={monitorRef}
+        className="relative mb-12 h-fit min-h-[35.75em] min-w-full max-w-full text-base"
+      >
+        <div className="mx-auto relative w-[39em] lg:w-full">
+          <img
+            src={monitor}
+            className="absolute min-h-[35.75em] min-w-[41.25em] w-[41.25em]"
+          />
+          <motion.img
+            key={`${project.title}-img`}
+            src={project.monitorImg}
+            initial={{ scale: 0.2 }}
+            animate={{ scale: 1 }}
+            transition={{
+              duration: 0.5,
+              type: 'spring',
+            }}
+            className="absolute top-[4.75em] left-[4.25em] w-[16em]"
+          />
+          <motion.img
+            key={`${project.title}-glow`}
+            src={project.glowImg}
+            initial={{ scale: 0.2 }}
+            animate={{ scale: 1 }}
+            transition={{
+              duration: 0.5,
+              type: 'spring',
+            }}
+            className="absolute top-[4.75em] left-[4.25em] w-[16em]"
+          />
+          <motion.img
+            key={`${project.title}-screen`}
+            initial={{ scale: 1 }}
+            animate={{
+              scaleX: [1, 1, 0],
+              scaleY: [1, 0.1, 0.1],
+              opacity: [1, 0.4, 0],
+            }}
+            transition={{
+              duration: 0.15,
+            }}
+            src={screen}
+            className="absolute top-[4.5em] left-[4em] w-[16.5em] h-[14.3em]"
+          />
+        </div>
       </div>
       <div className="mx-auto flex w-fit flex-col items-center gap-8">
         <div className="mx-auto w-fit">
@@ -291,7 +319,12 @@ const Hero = ({ ref }: { ref?: RefObject<HTMLDivElement | null> }) => {
   const mainHeroRef = useRef<HTMLDivElement>(null);
   const gradientRef = useRef<HTMLDivElement>(null);
 
-  const [{ isSm, isMd, isLg }] = useAtom(widthCheckAtom);
+  const [widthCheck] = useAtom(widthCheckAtom);
+  const { isSm, isMd, isLg } = widthCheck.current ?? {
+    isSm: true,
+    isMd: true,
+    isLg: true,
+  };
   const [lightbox, setLightbox] = useState(false);
   const [activeProject, setActiveProject] = useAtom(activeProjectAtom);
   const project = projects[activeProject];
@@ -302,10 +335,21 @@ const Hero = ({ ref }: { ref?: RefObject<HTMLDivElement | null> }) => {
 
   useLayoutEffect(() => {
     const measure = () => {
+      const widtchCheckRef = widthCheck;
+      const {
+        isSm: _isSm,
+        isMd: _isMd,
+        isLg: _isLg,
+      } = widtchCheckRef.current ?? {
+        isSm: true,
+        isMd: true,
+        isLg: true,
+      };
       if (!gradientRef.current || !mainHeroRef.current) return;
 
-      const fontSize = Math.min(mainHeroRef.current.offsetWidth / 3.765, 320);
-      console.log(fontSize);
+      const fontSize = !_isMd
+        ? Math.min(mainHeroRef.current.offsetWidth / 3.765, 320)
+        : Math.min(mainHeroRef.current.offsetWidth / 2, 252);
       gradientRef.current.style.top = `${fontSize}px`;
     };
     const observer = new ResizeObserver(measure);
@@ -336,8 +380,8 @@ const Hero = ({ ref }: { ref?: RefObject<HTMLDivElement | null> }) => {
         className="z-1 grid w-full grid-cols-1 md:grid-cols-[8fr_7fr] gap-16 px-8"
       >
         <div className="flex flex-col gap-12 row-start-auto md:row-start-1">
-          <div>
-            <div className="text-accent-400 flex gap-8 text-2xl underline">
+          <div className="text-xl sm:text-2xl">
+            <div className="text-accent-400 flex gap-8 underline">
               <AnimatePresence mode="wait">
                 {project.links.live && (
                   <motion.div
@@ -412,7 +456,7 @@ const Hero = ({ ref }: { ref?: RefObject<HTMLDivElement | null> }) => {
             </motion.div>
           </div>
         </div>
-        <div className="row-start-1 md:row-start-auto">
+        <div className="row-start-1 md:row-start-auto min-w-full max-w-full">
           <Monitor />
         </div>
       </div>
