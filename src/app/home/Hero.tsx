@@ -23,6 +23,9 @@ import Lightbox from 'yet-another-react-lightbox';
 import 'yet-another-react-lightbox/styles.css';
 
 import keyKeepintabs from '/images/hero/key-keepintabs.png';
+import keyRSVP from '/images/hero/key-rsvp.png';
+import keyGuada from '/images/hero/key-guada.png';
+import keyVacmor from '/images/hero/key-vacmor.png';
 import monitor from '/images/hero/monitor.png';
 import screen from '/images/hero/screen.png';
 import link from '/images/hero/link.svg';
@@ -34,6 +37,7 @@ import clickSfx from '/sounds/click.mp3';
 import { useWidthCheck } from '@/hooks/useWidthCheck';
 
 const Key = ({ index }: { index: number }) => {
+  const keySrc = [keyKeepintabs, keyGuada, keyRSVP, keyVacmor];
   const [playbackRate, setPlaybackRate] = useState(0.0);
   const [playHover, { stop }] = useSound(hoverSfx, { playbackRate: 1 + playbackRate });
   const [playClick] = useSound(clickSfx, { playbackRate: 1 + playbackRate });
@@ -100,7 +104,7 @@ const Key = ({ index }: { index: number }) => {
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
       className="w-[5em]"
-      src={keyKeepintabs}
+      src={keySrc[index]}
     />
   );
 };

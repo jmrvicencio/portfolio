@@ -24,8 +24,7 @@ export const keepinTabs: ProjectDetails = {
   monitorImg: keepintabsMonitor,
   glowImg: keepintabsGlow,
   links: {
-    live: 'asd',
-    github: 'asd',
+    github: 'https://github.com/jmrvicencio/keepintabs',
   },
   title: 'Keepin Tabs',
   desc: (
