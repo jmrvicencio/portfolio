@@ -28,16 +28,16 @@ const Entry = ({ title, desc }: { title: string; desc: string }) => {
   return (
     <div>
       <Heading>{title}</Heading>
-      <p className="text-lg pl-8">{desc}</p>
+      <p className="text-lg pl-8 text-journal-100">{desc}</p>
     </div>
   );
 };
 
 const Skillset = ({ ref }: { ref?: RefObject<HTMLDivElement | null> }) => {
   return (
-    <section ref={ref}>
+    <section ref={ref} className="px-8">
       <Label>Skillset</Label>
-      <div className="grid grid-cols-3 gap-6 mt-12">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-12">
         {Object.entries(skillset).map(([title, items]) => (
           <Entry key={title} title={title} desc={items} />
         ))}

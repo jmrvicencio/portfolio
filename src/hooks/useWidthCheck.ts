@@ -7,7 +7,7 @@ export const useWidthCheck = () => {
 
   useEffect(() => {
     const small = window.matchMedia('(max-width: 639px)');
-    const medium = window.matchMedia('(max-width: 767px)');
+    const medium = window.matchMedia('(max-width: 768px)');
     const large = window.matchMedia('(max-width: 959px)');
 
     const listener = () => {

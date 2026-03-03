@@ -7,13 +7,13 @@ import { RefObject } from 'react';
 
 const Contact = ({ ref }: { ref?: RefObject<HTMLDivElement | null> }) => {
   return (
-    <section ref={ref} className="mb-32">
+    <section ref={ref} className="md:mb-32 px-8 sm:text-2xl text-xl">
       <Label>Contact</Label>
       <div
         className="flex text-center items-center relative flex-col gap-8 justify-center
           h-150"
       >
-        <h2 className="font-extrabold text-8xl">
+        <h2 className="font-extrabold text-6xl md:text-8xl">
           Get in <span className="text-accent-400">Touch!</span>
         </h2>
         <div className="max-w-100 text-journal-100">
@@ -25,13 +25,16 @@ const Contact = ({ ref }: { ref?: RefObject<HTMLDivElement | null> }) => {
           </p>
         </div>
         <div className="flex gap-4">
-          <a href="mailto:inkintime@gmail.com">
+          <a target="_blank" href="mailto:inkintime@gmail.com">
             <img className="cursor-pointer" src={email} />
           </a>
-          <a href="https://github.com/jmrvicencio">
+          <a target="_blank" href="https://github.com/jmrvicencio">
             <img className="cursor-pointer" src={github} />
           </a>
-          <a href="https://www.linkedin.com/in/john-kyle-vicencio-898b89114/">
+          <a
+            target="_blank"
+            href="https://www.linkedin.com/in/john-kyle-vicencio-898b89114/"
+          >
             <img className="cursor-pointer" src={linkedin} />
           </a>
         </div>
